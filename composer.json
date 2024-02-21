@@ -1,6 +1,6 @@
 {
     "name": "czernika/laravel-fortify-wp-users",
-    "description": "Allows to use hashed passwords from WordPress database within Laravel Fortify application when migrating database",
+    "description": "Allows to use hashed passwords from WordPress within the Laravel Fortify application when migrating database",
     "license": "MIT",
     "version": "0.1.0",
     "keywords": [

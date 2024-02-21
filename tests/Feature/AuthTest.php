@@ -47,12 +47,13 @@ test('default fortify auth pipeline can be overwritten', function () {
     // Override authentication pipeline
     Fortify::authenticateThrough(function () {
         return [
-            new class {
+            new class
+            {
                 public function handle()
                 {
                     abort(500);
                 }
-            }
+            },
         ];
     });
 

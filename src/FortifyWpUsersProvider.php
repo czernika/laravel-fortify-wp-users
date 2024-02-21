@@ -37,6 +37,5 @@ class FortifyWpUsersProvider extends ServiceProvider
                 PrepareAuthenticatedSession::class,
             ]);
         });
-
     }
 }

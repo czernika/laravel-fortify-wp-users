@@ -1,4 +1,9 @@
 <?php
+/**
+ * @copyright Mike McLin
+ *
+ * @link https://github.com/mikemclin/laravel-wp-password
+ */
 
 declare(strict_types=1);
 
