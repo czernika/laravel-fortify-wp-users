@@ -55,7 +55,7 @@ There is a problem when user with the WordPress password uses wrong password - y
 ],
 ```
 
-### Change Auth Pipeline
+### Change Auth Pipeline (Optional)
 
 Package uses [authentication pipeline](https://laravel.com/docs/10.x/fortify#customizing-the-authentication-pipeline) from Fortify as follows:
 
