@@ -22,9 +22,40 @@ All we do is check the hash type and if it is a WordPress one, update it
 composer require czernika/laravel-fortify-wp-users
 ```
 
-Done!
+Almost done
 
 ## Configuration
+
+### Change User Provider
+
+There is a problem when user with the WordPress password uses wrong password - you will see Runtime Exception error. To prevent it we need to use custom [UserProvider](https://laravel.com/docs/10.x/authentication#adding-custom-user-providers). In fact, they were created for you for both eloquent and database drivers, all you need to do is configure it
+
+```php
+// config/auth.php
+
+'providers' => [
+    // Use one of these
+    'wp_eloquent' => [
+        'driver' => 'wp_eloquent', // Driver name is important
+        'model' => App\Models\User::class,
+    ],
+
+    'wp_database' => [
+        'driver' => 'wp_database', // Driver name is important
+        'table' => 'users',
+    ],
+],
+
+'guards' => [
+    'web' => [
+        'driver' => 'session',
+        // 'provider' => 'users',
+        'provider' => 'wp_eloquent', // Instead os users pass key from providers
+    ],
+],
+```
+
+### Change Auth Pipeline
 
 Package uses [authentication pipeline](https://laravel.com/docs/10.x/fortify#customizing-the-authentication-pipeline) from Fortify as follows:
 

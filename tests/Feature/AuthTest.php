@@ -83,3 +83,54 @@ test('when package action is disabled user cannot login with WordPress password'
 
     $this->assertGuest();
 });
+
+test('when user passes incorrect password it throws runtime exception error without configuring user providers', function () {
+    $this->withoutExceptionHandling();
+
+    User::factory()->create([
+        'password' => '$P$B4x2yN4GIdtfW/FP5IJ06rl1BUTKhU.', // password
+    ]);
+
+    $this->post('/login', [
+        'email' => 'admin@admin.com',
+        'password' => 'passwors', // typo
+    ]);
+})->throws(RuntimeException::class);
+
+test('when user passes incorrect password it fail to login with wp_eloquent user provider', function () {
+    config()->set('auth.providers.wp_eloquent', [
+        'driver' => 'wp_eloquent',
+        'model' => App\Models\User::class,
+    ]);
+    config()->set('auth.guards.web.provider', 'wp_eloquent');
+    
+    User::factory()->create([
+        'password' => '$P$B4x2yN4GIdtfW/FP5IJ06rl1BUTKhU.', // password
+    ]);
+
+    $this->post('/login', [
+        'email' => 'admin@admin.com',
+        'password' => 'passwors', // typo
+    ]);
+
+    $this->assertGuest();
+});
+
+test('when user passes incorrect password it fail to login with wp_database user provider', function () {
+    config()->set('auth.providers.wp_database', [
+        'driver' => 'wp_database',
+        'table' => 'users',
+    ]);
+    config()->set('auth.guards.web.provider', 'wp_database');
+    
+    User::factory()->create([
+        'password' => '$P$B4x2yN4GIdtfW/FP5IJ06rl1BUTKhU.', // password
+    ]);
+
+    $this->post('/login', [
+        'email' => 'admin@admin.com',
+        'password' => 'passwors', // typo
+    ]);
+
+    $this->assertGuest();
+});

@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Czernika\FortifyWpUsers;
 
 use Czernika\FortifyWpUsers\Actions\TryToUpdateWpPassword;
+use Czernika\FortifyWpUsers\Auth\Providers\WpDatabaseUserProvider;
+use Czernika\FortifyWpUsers\Auth\Providers\WpEloquentUserProvider;
 use Czernika\FortifyWpUsers\Hashing\Drivers\WpPassword;
 use Czernika\FortifyWpUsers\Hashing\Drivers\WpPasswordContract;
 use Hautelook\Phpass\PasswordHash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
@@ -36,6 +39,15 @@ class FortifyWpUsersProvider extends ServiceProvider
                 AttemptToAuthenticate::class,
                 PrepareAuthenticatedSession::class,
             ]);
+        });
+
+        Auth::provider('wp_eloquent', function ($app, $config) {
+            return new WpEloquentUserProvider($app['hash'], $config['model']);
+        });
+        Auth::provider('wp_database', function ($app, $config) {
+            $connection = $app['db']->connection($config['connection'] ?? null);
+
+            return new WpDatabaseUserProvider($connection, $app['hash'], $config['table']);
         });
     }
 }
