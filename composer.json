@@ -1,0 +1,76 @@
+{
+    "name": "czernika/laravel-fortify-wp-users",
+    "description": "Allows to use hashed passwords from WordPress database within Laravel Fortify application when migrating database",
+    "license": "MIT",
+    "version": "0.1.0-rc",
+    "keywords": [
+        "laravel",
+        "fortify",
+        "wordpress",
+        "users"
+    ],
+    "authors": [
+        {
+            "name": "Aliakseyenka Ihar",
+            "email": "aliha.devs@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "bordoni/phpass": "^0.3.6",
+        "laravel/fortify": "^1.20"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.42",
+        "laravel/pint": "^1.14",
+        "orchestra/testbench": "^8.21",
+        "pestphp/pest": "^2.34"
+    },
+    "autoload": {
+        "psr-4": {
+            "Czernika\\FortifyWpUsers\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czernika\\FortifyWpUsers\\FortifyWpUsersProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/pint",
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@php vendor/bin/pest"
+        ]
+    }
+}

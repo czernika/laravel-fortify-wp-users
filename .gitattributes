@@ -1,0 +1,5 @@
+/.github   export-ignore
+/docs      export-ignore
+/skeleton  export-ignore
+/workbench export-ignore
+/tests     export-ignore

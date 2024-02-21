@@ -1,0 +1,23 @@
+providers:
+  - Czernika\FortifyWpUsers\FortifyWpUsersProvider
+  
+migrations:
+  - workbench/database/migrations
+
+seeders:
+  - Workbench\Database\Seeders\DatabaseSeeder
+
+workbench:
+  start: '/'
+  install: true
+  discovers:
+    web: true
+    api: false
+    commands: false
+    components: false
+    views: false
+  build:
+    - create-sqlite-db
+    - migrate:refresh
+  assets: []
+  sync: []
