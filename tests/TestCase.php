@@ -15,9 +15,9 @@ abstract class TestCase extends BaseTestCase
         tap($app['config'], function (Repository $config) {
             $config->set('database.default', 'testing');
             $config->set('database.connections.testing', [
-                'driver'   => 'sqlite',
+                'driver' => 'sqlite',
                 'database' => ':memory:',
-                'prefix'   => '',
+                'prefix' => '',
             ]);
         });
     }

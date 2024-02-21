@@ -1,11 +1,6 @@
 providers:
   - Czernika\FortifyWpUsers\FortifyWpUsersProvider
-  
-migrations:
-  - workbench/database/migrations
-
-seeders:
-  - Workbench\Database\Seeders\DatabaseSeeder
+  - Laravel\Fortify\FortifyServiceProvider
 
 workbench:
   start: '/'

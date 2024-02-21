@@ -14,13 +14,12 @@ class TryToUpdateWpPassword
     public function __construct(
         protected StatefulGuard $guard,
         protected WpPasswordContract $wpPassword,
-    )
-    {
-        
+    ) {
+
     }
 
     public function handle($request, $next)
-    {   
+    {
         $model = $this->guard->getProvider()->getModel();
         $user = $model::firstWhere(Fortify::username(), $request->{Fortify::username()});
 
