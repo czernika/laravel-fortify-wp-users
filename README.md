@@ -16,6 +16,10 @@ We will check almost at the beginning of the authentication pipeline if user exi
 
 All we do is check the hash type and if it is a WordPress one, update it
 
+## Support
+
+Tested for Laravel versions 10 (PHP8.1+) and 11 (PHP8.2+)
+
 ## Installation
 
 ```sh

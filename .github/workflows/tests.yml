@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - "**/*.php"
+    paths:
+      - "**/*.php"
   pull_request:
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ hashFiles('**/composer.lock') }}
